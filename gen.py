@@ -16,7 +16,7 @@ def genBeat(SONG_BPM,SONG_LOOP_NUM,SONG_TUNE,kick,snare,bass):
     mid.tracks.append(snare)
     mid.tracks.append(bass)
 
-    bass_lead = [4,4,4,4,0,0,0,0,7,7,7,7,2,2,2,2]
+    bass_lead = [4,4,4,4,0,0,0,0,7,7,7,7,2,2,2,2,7]
     bass_i = 0
 
 
@@ -32,9 +32,12 @@ def genBeat(SONG_BPM,SONG_LOOP_NUM,SONG_TUNE,kick,snare,bass):
                 snare.add_drum(startTime=i,length=30)
                 snare_n_kick_sym = 0
             elif i % 240 == 0:
-                bass.add_note(pitch=SONG_ROOT_PITCH+bass_lead[bass_i],startTime=i,length=240)
+                length = 240 if bass_i<15 else 120
+                print(length)
+                bass.add_note(pitch=SONG_ROOT_PITCH+bass_lead[bass_i],startTime=i,length=length)
                 bass_i = bass_i + 1
                 if bass_i == 16:
+                    bass.add_note(pitch=SONG_ROOT_PITCH+bass_lead[bass_i],startTime=i+length,length=120)
                     bass_i = 0
         loop_start_time = loop_start_time + 7680
 
